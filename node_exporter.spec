@@ -32,6 +32,9 @@ install -D -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/node_exporter.
 # Create a node_exporter user if it doesn't exist
 getent passwd node_exporter > /dev/null || useradd -r -s /sbin/nologin -d / -c "Prometheus Node Exporter" node_exporter
 
+#Change the binary ownership to "node_exporter"
+chown node_exporter:node_exporter /usr/local/bin/node_exporter
+
 # Enable and reload the systemd service
 systemctl daemon-reload
 systemctl enable node_exporter
