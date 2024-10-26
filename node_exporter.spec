@@ -28,10 +28,10 @@ install -D -m 0755 %{_builddir}/%{name}-%{version}.linux-amd64/node_exporter %{b
 # Install the systemd service file
 install -D -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/node_exporter.service
 
+%post
 # Create a node_exporter user if it doesn't exist
 getent passwd node_exporter > /dev/null || useradd -r -s /sbin/nologin -d / -c "Prometheus Node Exporter" node_exporter
 
-%post
 # Enable and reload the systemd service
 systemctl daemon-reload
 systemctl enable node_exporter
